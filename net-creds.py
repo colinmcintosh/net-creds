@@ -12,6 +12,7 @@ import struct
 import argparse
 import signal
 import base64
+from datetime import datetime
 from urllib import unquote
 from subprocess import Popen, PIPE
 from collections import OrderedDict
@@ -66,6 +67,7 @@ def parse_args():
    parser.add_argument("-i", "--interface", help="Choose an interface")
    parser.add_argument("-p", "--pcap", help="Parse info from a pcap file; -p <pcapfilename>")
    parser.add_argument("-f", "--filterip", help="Do not sniff packets from this IP address; -f 192.168.0.4")
+   parser.add_argument("-d", "--datetime", help="Displays the datetime along with the output", action="store_true")
    parser.add_argument("-v", "--verbose", help="Display entire URLs and POST loads rather than truncating at 100 characters", action="store_true")
    return parser.parse_args()
 
@@ -928,10 +930,12 @@ def printer(src_ip_port, dst_ip_port, msg):
         print_str = '[%s > %s] %s%s%s' % (src_ip_port, dst_ip_port, T, msg, W)
         # All credentials will have dst_ip_port, URLs will not
         logging.info(print_str)
-        print print_str
     else:
         print_str = '[%s] %s' % (src_ip_port.split(':')[0], msg)
-        print print_str
+    if parse_args().datetime:
+        dt = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        print_str = "[%s] %s" % (dt, print_str) 
+    print print_str
 
 def main(args):
     ##################### DEBUG ##########################
