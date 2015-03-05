@@ -1,4 +1,9 @@
-Thoroughly sniff passwords and hashes from an interface or pcap file. Concatenates fragmented packets and does not rely on ports for service identification. Screenshots: http://imgur.com/opQo7Bb http://imgur.com/Kl5I6Ju
+Thoroughly sniff passwords and hashes from an interface or pcap file. Concatenates fragmented packets and does not rely on ports for service identification. 
+
+| Screenshots |
+|:-----:|
+| ![Screenie1](http://imgur.com/opQo7Bb.png) |
+| ![Screenie2](http://imgur.com/Kl5I6Ju.png) |
 
 ###Sniffs
 
@@ -35,6 +40,23 @@ Ignore packets to and from 192.168.0.2
 Read from pcap
 
 ```python net-creds.py -p pcapfile```
+
+
+####OSX
+
+Credit to [epocs](https://github.com/epocs):
+```
+sudo easy_install pip
+sudo pip install scapy
+sudo pip install pcapy
+brew install libdnet --with-python
+mkdir -p /Users/<username>/Library/Python/2.7/lib/python/site-packages
+echo 'import site; site.addsitedir("/usr/local/lib/python2.7/site-packages")' >> /Users/<username>/Library/Python/2.7/lib/python/site-packages/homebrew.pth
+sudo pip install pypcap
+brew tap brona/iproute2mac
+brew install iproute2mac
+```
+Then replace line 74 '/sbin/ip' with '/usr/local/bin/ip'.
 
 
 ####Thanks
